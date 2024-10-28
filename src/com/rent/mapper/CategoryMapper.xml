@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rent.dao.CategoryDao">
+
+
+	<select id="selectCategoryList" resultType="com.rent.entity.Category"
+		parameterType="map">
+		select * from category where 1 = 1
+
+		<if test="map.key != null and map.key != '' ">
+			<bind name="key" value="'%' + map.key + '%'" />
+			and name like #{key}
+		</if>
+		
+		
+		<if test="map.uid != null and map.uid != '' ">
+			and eid = #{map.uid}
+		</if>
+		
+		order by id desc
+
+	</select>
+
+
+	<insert id="addCategory" parameterType="com.rent.entity.Category">
+		insert into category (name, photo, note)
+		values (#{cc.name},#{cc.photo},
+		#{cc.note})
+	</insert>
+	
+
+	<delete id="deleteCategory" parameterType="java.lang.Integer">
+		delete from category
+		where id = #{id}
+	</delete>
+
+	<select id="selectCategoryById" resultType="com.rent.entity.Category"
+		parameterType="java.lang.Integer">
+		select * from category where id = #{id}
+	</select>
+
+	<update id="updateCategory" parameterType="com.rent.entity.Category">
+		update category set
+		name = #{cc.name},
+		photo = #{cc.photo},
+		note = #{cc.note}
+		where id = #{cc.id}
+	</update>
+	
+</mapper>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rent.dao.EmployeeDao">
+
+
+
+	<select id="selectEmployee" resultType="com.rent.entity.Employee"
+		parameterType="com.rent.entity.Employee">
+		select * from employee where eno = #{Employee.eno} and pwd =
+		#{Employee.pwd}
+
+	</select>
+
+
+	<select id="selectEmployeeByKey" 
+		resultType="com.rent.entity.Employee">
+		select * from employee where eno = #{key} 
+	</select>
+
+
+	<select id="selectEmployeeList" resultType="com.rent.entity.Employee"
+		parameterType="map">
+		select * from employee where 1 = 1
+
+		<if test="map.key != null and map.key != '' ">
+			<bind name="key" value="'%' + map.key + '%'" />
+			and name like #{key}
+		</if>
+
+		<if test="map.uid != null and map.uid != '' ">
+			and id = #{map.uid}
+		</if>
+		
+		order by id desc
+
+	</select>
+
+	<insert id="addEmployee" parameterType="com.rent.entity.Employee">
+		insert into employee (eno, pwd,photo, name ,sex,create_date)
+		values (#{cc.eno},#{cc.pwd},
+		#{cc.photo},#{cc.name},#{cc.sex},#{cc.create_date})
+	</insert>
+	
+
+	<delete id="deleteEmployee" parameterType="java.lang.Integer">
+		delete from employee
+		where id = #{id}
+	</delete>
+
+	<select id="selectEmployeeById" resultType="com.rent.entity.Employee"
+		parameterType="java.lang.Integer">
+		select * from employee where id = #{id}
+	</select>
+
+	<update id="updateEmployee" parameterType="com.rent.entity.Employee">
+		update employee set
+		pwd = #{cc.pwd},
+		photo = #{cc.photo},
+		name = #{cc.name},
+		sex = #{cc.sex}
+		where id = #{cc.id}
+	</update>
+	
+</mapper>

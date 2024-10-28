@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rent.dao.YcxqDao">
+
+
+	<select id="selectYcxqList" resultType="com.rent.entity.Ycxq"
+		parameterType="map">
+		select * from ycxq where 1 = 1
+
+		<if test="map.key != null and map.key != '' ">
+			<bind name="key" value="'%' + map.key + '%'" />
+			and narealnameme like #{key}
+		</if>
+		
+		order by id desc
+
+	</select>
+
+
+	<insert id="addYcxq" parameterType="com.rent.entity.Ycxq">
+		insert into ycxq (bid, cid, ycnx, price, zcsj, phone, realname, note)
+		values (#{cc.bid},#{cc.cid},
+		#{cc.ycnx},#{cc.price},#{cc.zcsj},#{cc.phone},#{cc.realname},#{cc.note})
+	</insert>
+	
+	<delete id="deleteYcxq" parameterType="java.lang.Integer">
+		delete from ycxq
+		where id = #{id}
+	</delete>
+
+	<select id="selectYcxqById" resultType="com.rent.entity.Ycxq"
+		parameterType="java.lang.Integer">
+		select * from ycxq where id = #{id}
+	</select>
+
+	<update id="updateYcxq" parameterType="com.rent.entity.Ycxq">
+		update ycxq set
+		bid = #{cc.bid}
+		where id = #{cc.id}
+	</update>
+	
+</mapper>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rent.dao.AppointmentDao">
+
+	<select id="selectAppointmentList" resultType="com.rent.entity.Appointment"
+		parameterType="map">
+		select * from appointment where 1 = 1
+
+		<if test="map.key != null and map.key != '' ">
+			<bind name="key" value="'%' + map.key + '%'" />
+			and create_date like #{key}
+		</if>
+
+		<if test="map.uid != null and map.uid != '' ">
+			and eid = #{map.uid}
+		</if>
+		
+		order by id desc
+
+	</select>
+
+
+	<insert id="addAppointment" parameterType="com.rent.entity.Appointment">
+		insert into appointment (uid, eid, cid, create_date, times)
+		values (#{cc.uid},#{cc.eid},
+		#{cc.cid},#{cc.create_date},#{cc.times})
+	</insert>
+	
+
+	<delete id="deleteAppointment" parameterType="java.lang.Integer">
+		delete from appointment
+		where id = #{id}
+	</delete>
+
+	<select id="selectAppointmentById" resultType="com.rent.entity.Appointment"
+		parameterType="java.lang.Integer">
+		select * from appointment where id = #{id}
+	</select>
+
+	<select id="selectAppStatics" resultType="com.rent.entity.Statics">
+select count(1) as counts , create_date as message from appointment GROUP BY  message
+	</select>
+
+	<update id="updateAppointment" parameterType="com.rent.entity.Appointment">
+		update appointment set
+		status = #{cc.status}
+		where id = #{cc.id}
+	</update>
+	
+</mapper>

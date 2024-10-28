@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rent.dao.OrdersDao">
+
+
+	<select id="selectOrdersList" resultType="com.rent.entity.Orders"
+		parameterType="map">
+		select * from Orders where 1 = 1
+
+		<if test="map.key != null and map.key != '' ">
+			<bind name="key" value="'%' + map.key + '%'" />
+			and order_no like #{key}
+		</if>
+		
+		
+		<if test="map.uid != null and map.uid != '' ">
+			and uid =   #{map.uid}
+		</if>
+		
+			
+		<if test="map.eid != null and map.eid != '' ">
+			and eid = #{map.eid}
+		</if>
+		
+		order by id desc
+
+	</select>
+
+	<select id="selectHtList" resultType="com.rent.entity.Ht"
+		parameterType="map">
+		select * from ht where 1 = 1
+
+		<if test="map.key != null and map.key != '' ">
+			<bind name="key" value="'%' + map.key + '%'" />
+			and phone like #{key}
+		</if>
+		
+		
+		<if test="map.uid != null and map.uid != '' ">
+			and uid =   #{map.uid}
+		</if>
+			
+		<if test="map.eid != null and map.eid != '' ">
+			and eid = #{map.eid}
+		</if>
+		
+		order by id desc
+
+	</select>
+
+
+	<insert id="addOrders" parameterType="com.rent.entity.Orders">
+		insert into Orders (order_no, cid, eid,total_price,start_date,end_date,days,pay_way,uid,create_time)
+		values (#{cc.order_no},
+		#{cc.cid},
+		#{cc.eid},
+		#{cc.total_price},
+		#{cc.start_date},
+		#{cc.end_date},
+		#{cc.days},
+		#{cc.pay_way},
+		#{cc.uid},
+		#{cc.create_time})
+	</insert>
+
+
+	<insert id="addHt" parameterType="com.rent.entity.Ht">
+		insert into ht (htbh, cid, eid,phone,oid,uid,qysj,htwj)
+		values (#{cc.htbh},
+		#{cc.cid},
+		#{cc.eid},
+		#{cc.phone},
+		#{cc.oid},
+		#{cc.uid},
+		#{cc.qysj},
+		#{cc.htwj})
+	</insert>
+	
+	<delete id="deleteOrders" parameterType="java.lang.Integer">
+		delete from Orders
+		where id = #{id}
+	</delete>
+	
+	<delete id="deleteHt" parameterType="java.lang.Integer">
+		delete from ht
+		where id = #{id}
+	</delete>
+
+	<select id="selectOrdersById" resultType="com.rent.entity.Orders"
+		parameterType="java.lang.Integer">
+		select * from Orders where id = #{id}
+	</select>
+
+	<select id="selectHtByOid" resultType="com.rent.entity.Ht"
+		parameterType="java.lang.Integer">
+		select * from ht where oid = #{id}
+	</select>
+
+	<update id="updateOrders" parameterType="com.rent.entity.Orders">
+		update Orders set
+		status = #{cc.status}
+		where id = #{cc.id}
+	</update>
+	
+</mapper>

@@ -1,0 +1,27 @@
+.page-link,
+a {
+  color: #ff3c2f;
+}
+a:hover {
+  color: #c73227;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(252, 59, 59, 0.75);
+  border-radius: 10px;
+}
+.btn-primary {
+  color: #fff;
+  background-color: #ff3c2f;
+  border-color: #ff3c2f;
+}
+.btn-primary:hover {
+  color: #fff;
+  background-color: #be3229;
+  border-color: #be3229;
+}
+nav .menu li a.active {
+  border-left: 4px solid #ff3c2f;
+}
+nav .menu li .sub-menu li a.active {
+  border-left: 4px solid #ff3c2f;
+}

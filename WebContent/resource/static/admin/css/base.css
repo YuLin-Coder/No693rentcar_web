@@ -1,0 +1,29 @@
+@import "iconfont.css";
+html,
+body {
+  height: 100%;
+}
+* {
+  border-radius: 0 !important;
+  text-decoration: none !important;
+}
+ul {
+  margin: 0;
+  padding: 0;
+}
+ul li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+::-webkit-scrollbar {
+  width: 3px;
+  background-color: #eee;
+}
+::-webkit-scrollbar-thumb {
+  background: #6897ff;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-track-piece {
+  background: transparent;
+}

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rent.dao.SmrzDao">
+
+
+	<select id="selectSmrzList" resultType="com.rent.entity.Smrz"
+		parameterType="map">
+		select * from Smrz where 1 = 1
+
+		<if test="map.key != null and map.key != '' ">
+			<bind name="key" value="'%' + map.key + '%'" />
+			and cno like #{key}
+		</if>
+		
+		order by id desc
+
+	</select>
+
+
+	<insert id="addSmrz" parameterType="com.rent.entity.Smrz">
+		insert into Smrz (uid, cno, photo1,photo2)
+		values (#{cc.uid},#{cc.cno},
+		#{cc.photo1},#{cc.photo2})
+		
+	</insert>
+	
+
+	<delete id="deleteSmrz" parameterType="java.lang.Integer">
+		delete from Smrz
+		where id = #{id}
+	</delete>
+
+	<select id="selectSmrzById" resultType="com.rent.entity.Smrz"
+		parameterType="java.lang.Integer">
+		select * from Smrz where id = #{id}
+	</select>
+
+	<select id="selectSrmzByUid" resultType="com.rent.entity.Smrz"
+		parameterType="java.lang.Integer">
+		select * from Smrz where uid = #{id}
+	</select>
+
+	<update id="updateSmrz" parameterType="com.rent.entity.Smrz">
+		update Smrz set
+		state = #{cc.state}
+		where id = #{cc.id}
+	</update>
+	
+</mapper>

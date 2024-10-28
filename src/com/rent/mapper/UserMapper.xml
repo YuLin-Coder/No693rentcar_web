@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rent.dao.UserDao">
+
+
+	<select id="selectAdmin" resultType="com.rent.entity.Admin"
+		parameterType="com.rent.entity.Admin">
+		select * from admin where username = #{admin.username} and password =
+		#{admin.password}
+
+	</select>
+
+
+	<select id="selectUser" resultType="com.rent.entity.User"
+		parameterType="com.rent.entity.User">
+		select * from user where phone = #{user.phone} and password =
+		#{user.password}
+
+	</select>
+
+
+
+	<select id="selectUserByUserName" 
+		resultType="com.rent.entity.User">
+		select * from user where phone = #{phone} 
+	</select>
+
+
+	<select id="selectUserList" resultType="com.rent.entity.User"
+		parameterType="map">
+		select * from user where 1 = 1
+
+		<if test="map.username != null and map.username != '' ">
+			<bind name="name" value="'%' + map.username + '%'" />
+			and realName like #{name}
+		</if>
+
+		<if test="map.uid != null and map.uid != '' ">
+			and id = #{map.uid}
+		</if>
+		
+		order by id desc
+
+	</select>
+
+	<insert id="addUser" parameterType="com.rent.entity.User">
+		insert into user (password, realName,nickname, phone ,times,img)
+		values (#{cc.password},#{cc.realName},
+		#{cc.nickname},#{cc.phone},#{cc.times},#{cc.img})
+	</insert>
+
+	<delete id="deleteUser" parameterType="java.lang.Integer">
+		delete from user
+		where id = #{id}
+	</delete>
+
+	<select id="selectUserById" resultType="com.rent.entity.User"
+		parameterType="java.lang.Integer">
+		select * from user where id = #{id}
+	</select>
+
+	<update id="updateUser" parameterType="com.rent.entity.User">
+		update user set
+		password = #{cc.password},
+		realName = #{cc.realName},
+		nickname = #{cc.nickname},
+		phone = #{cc.phone},
+		img = #{cc.img}
+		where id = #{cc.id}
+	</update>
+
+	<update id="updateUserStatus" parameterType="com.rent.entity.User">
+		update user set
+		status = #{user.status}
+		where id = #{user.id}
+	</update>
+
+	<update id="updateAdminPassword" >
+		update admin set
+		password = #{newpass}
+		where id = #{id}
+	</update>
+	
+	
+</mapper>

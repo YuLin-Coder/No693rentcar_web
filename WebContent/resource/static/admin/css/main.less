@@ -1,0 +1,92 @@
+@import "base.less";
+
+
+
+*{
+  box-sizing: border-box;
+}
+
+.row{
+  margin: 0;
+  .col{
+    padding: 0;
+  }
+}
+body,html{
+  height: 100%;
+  color: #999;
+  main {
+    padding: 20px;
+    background-color: #eaeaea;
+    height: 100%;
+
+    > div{
+      background-color: #fff;
+      height: 100%;
+    }
+
+
+    .main{
+
+      form{
+        height: 100%;
+      }
+      padding: 0 20px;
+      position: relative;
+
+      display: flex;
+      flex-direction: column;/*列  垂直方向*/
+      height: 100%;/*全屏效果  该元素及其父元素及html、body height：100%*/
+
+      .search{
+        padding: 20px 0;
+        overflow: hidden;
+      }
+      .table-box{
+        flex: 1;
+        overflow-y: auto;
+      }
+
+      .title-box{
+        padding: 15px 0;
+        width: 100%;
+        h5{
+          float: left;
+          color: #999;
+          margin: 0;
+        }
+        border-bottom: 1px solid #ccc;
+      }
+      .form-box{
+
+        padding: 20px 0px;
+        flex: 1;
+        overflow-y: auto;
+        box-sizing: border-box;
+      }
+
+      .submit-box{
+        padding: 20px 0;
+        width: 100%;
+      }
+
+      .page{
+        padding: 20px 0;
+        width: 100%;
+
+        nav{
+          float: right;
+        }
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+

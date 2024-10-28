@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rent.dao.BrandDao">
+
+
+
+	<select id="selectBrand" resultType="com.rent.entity.Brand"
+		parameterType="com.rent.entity.Brand">
+		select * from Brand where eno = #{Brand.eno} and password =
+		#{Brand.password}
+
+	</select>
+
+
+	<select id="selectBrandByKey" 
+		resultType="com.rent.entity.Brand">
+		select * from Brand where bname = #{key} 
+	</select>
+
+
+	<select id="selectBrandList" resultType="com.rent.entity.Brand"
+		parameterType="map">
+		select * from Brand where 1 = 1
+
+		<if test="map.key != null and map.key != '' ">
+			<bind name="key" value="'%' + map.key + '%'" />
+			and bname like #{key}
+		</if>
+		
+		order by id desc
+
+	</select>
+
+	<insert id="addBrand" parameterType="com.rent.entity.Brand">
+		insert into Brand (bname, photo,cx, note)
+		values (#{cc.bname},#{cc.photo},
+		#{cc.cx},#{cc.note})
+	</insert>
+	
+
+	<delete id="deleteBrand" parameterType="java.lang.Integer">
+		delete from Brand
+		where id = #{id}
+	</delete>
+
+	<select id="selectBrandById" resultType="com.rent.entity.Brand"
+		parameterType="java.lang.Integer">
+		select * from Brand where id = #{id}
+	</select>
+
+	<update id="updateBrand" parameterType="com.rent.entity.Brand">
+		update Brand set
+		bname = #{cc.bname},
+		photo = #{cc.photo},
+		cx = #{cc.cx},
+		note = #{cc.note}
+		where id = #{cc.id}
+	</update>
+	
+</mapper>

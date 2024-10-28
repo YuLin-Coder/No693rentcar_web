@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rent.dao.CarDao">
+
+
+	<select id="selectCarList" resultType="com.rent.entity.Car"
+		parameterType="map">
+		select * from Car where 1 = 1
+
+		<if test="map.key != null and map.key != '' ">
+			<bind name="key" value="'%' + map.key + '%'" />
+			and name like #{key}
+		</if>
+		
+		<if test="map.eid != null and map.eid != '' ">
+			and eid = #{map.eid}
+		</if>
+		
+		<if test="map.bid != null and map.bid != '' ">
+			and bid = #{map.bid}
+		</if>
+		
+		<if test="map.cid != null and map.cid != '' ">
+			and cid = #{map.cid}
+		</if>
+		<if test="map.pf_stand != null and map.pf_stand != '' ">
+			and pf_stand = #{map.pf_stand}
+		</if>
+		
+		<if test="map.status != null and map.status != '' ">
+			and status = #{map.status}
+		</if>
+		
+		order by id desc
+
+	</select>
+
+
+	<insert id="addCar" parameterType="com.rent.entity.Car">
+		insert into Car (name, cid, bid, eid, photo, color, price1, price2, carno, sp_date, distance, pf_stand, pl
+		, ycnx, nj_date, bxdq_date, note, create_time)
+		values (#{cc.name},#{cc.cid},
+		#{cc.bid},#{cc.eid},#{cc.photo},#{cc.color},#{cc.price1},#{cc.price2},#{cc.carno},#{cc.sp_date}
+		,#{cc.distance},#{cc.pf_stand},#{cc.pl},#{cc.ycnx},#{cc.nj_date},#{cc.bxdq_date},#{cc.note},#{cc.create_time})
+	</insert>
+	
+
+	<delete id="deleteCar" parameterType="java.lang.Integer">
+		delete from Car
+		where id = #{id}
+	</delete>
+
+	<select id="selectCarById" resultType="com.rent.entity.Car"
+		parameterType="java.lang.Integer">
+		select * from Car where id = #{id}
+	</select>
+
+	<update id="updateCar" parameterType="com.rent.entity.Car">
+		update Car set
+		name = #{cc.name},
+		cid = #{cc.cid},
+		bid = #{cc.bid},
+		photo = #{cc.photo},
+		color = #{cc.color},
+		price1 = #{cc.price1},
+		price2 = #{cc.price2},
+		carno = #{cc.carno},
+		sp_date = #{cc.sp_date},
+		sp_date = #{cc.sp_date},
+		distance = #{cc.distance},
+		pf_stand = #{cc.pf_stand},
+		pl = #{cc.pl},
+		ycnx = #{cc.ycnx},
+		nj_date = #{cc.nj_date},
+		bxdq_date = #{cc.bxdq_date},
+		note = #{cc.note}
+		where id = #{cc.id}
+	</update>
+	
+</mapper>
